@@ -2,6 +2,8 @@
 import { TaskStore } from './taskStore.js';
 import { add } from './commands/add.js';
 import { list } from './commands/list.js';
+import { done } from './commands/done.js';
+import { remove } from './commands/remove.js';
 
 const [, , command, ...args] = process.argv;
 const store = new TaskStore();
@@ -21,8 +23,18 @@ switch (command) {
     }
     break;
   }
+  case 'done': {
+    const task = done(store, args[0]);
+    console.log(`Marked task ${task.id} done: ${task.text}`);
+    break;
+  }
+  case 'remove': {
+    const id = remove(store, args[0]);
+    console.log(`Removed task ${id}`);
+    break;
+  }
   default: {
-    console.log('Usage: tracker <add|list> [arguments]');
+    console.log('Usage: tracker <add|list|done|remove> [arguments]');
     process.exitCode = 1;
   }
 }
