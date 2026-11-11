@@ -33,8 +33,13 @@ switch (command) {
     console.log(`Removed task ${id}`);
     break;
   }
+  case 'count': {
+    const total = store.load().length;
+    console.log(`You have ${total} task(s).`);
+    break;
+  }
   default: {
-    console.log('Usage: tracker <add|list|done|remove> [arguments]');
+    console.log('Usage: tracker <add|list|done|remove|count> [arguments]');
     process.exitCode = 1;
   }
 }
