@@ -1,0 +1,15 @@
+{
+  "name": "task-tracker-cli",
+  "version": "1.0.0",
+  "description": "A small command-line task tracker used as companion code for the GitHub Fundamentals course.",
+  "main": "src/index.js",
+  "type": "module",
+  "bin": {
+    "tracker": "src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test test/"
+  },
+  "license": "MIT"
+}
