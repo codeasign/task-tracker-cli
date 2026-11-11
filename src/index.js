@@ -33,6 +33,11 @@ switch (command) {
     console.log(`Removed task ${id}`);
     break;
   }
+  case 'clear': {
+    store.save([]);
+    console.log('Cleared all tasks.');
+    break;
+  }
   default: {
     console.log('Usage: tracker <add|list|done|remove> [arguments]');
     process.exitCode = 1;
