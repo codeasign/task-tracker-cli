@@ -1,0 +1,24 @@
+name: Reusable test workflow
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: Node.js version to test against
+        required: true
+        type: string
+      os:
+        description: Runner operating system
+        required: true
+        type: string
+
+jobs:
+  test:
+    runs-on: ${{ inputs.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-project
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: Run tests
+        run: npm test

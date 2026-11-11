@@ -1,7 +1,7 @@
 {
   "name": "task-tracker-cli",
   "version": "1.0.0",
-  "description": "A small command-line task tracker used as companion code for the GitHub Fundamentals course.",
+  "description": "A small command-line task tracker used as companion code for the Sypher GitHub Fundamentals and GitHub Actions courses.",
   "main": "src/index.js",
   "type": "module",
   "bin": {
@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "node src/index.js",
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js",
+    "build:site": "node scripts/build-site.mjs"
   },
   "license": "MIT"
 }
