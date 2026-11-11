@@ -25,10 +25,13 @@ npm install
 
 ```bash
 node src/index.js add "Write the Q3 report"
+node src/index.js add "Fix login bug" --priority high
 node src/index.js list
 node src/index.js done 1
 node src/index.js remove 1
 ```
+
+Pass `--priority low|normal|high` to `add` to set a task priority. It defaults to `normal` when omitted.
 
 ## Run the tests
 
