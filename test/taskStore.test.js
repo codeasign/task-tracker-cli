@@ -23,6 +23,21 @@ test('add() creates a task with an incrementing id', () => {
   rmSync(dir, { recursive: true, force: true });
 });
 
+test('add() defaults to normal priority and accepts a valid override', () => {
+  const { store, dir } = tempStore();
+  const normal = add(store, 'Normal task');
+  const urgent = add(store, 'Urgent task', 'high');
+  assert.equal(normal.priority, 'normal');
+  assert.equal(urgent.priority, 'high');
+  rmSync(dir, { recursive: true, force: true });
+});
+
+test('add() rejects an invalid priority', () => {
+  const { store, dir } = tempStore();
+  assert.throws(() => add(store, 'Task', 'urgent'), /Priority must be one of/);
+  rmSync(dir, { recursive: true, force: true });
+});
+
 test('add() rejects an empty description', () => {
   const { store, dir } = tempStore();
   assert.throws(() => add(store, '   '), /needs a description/);
