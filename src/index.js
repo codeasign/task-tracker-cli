@@ -24,8 +24,13 @@ switch (command) {
     break;
   }
   case 'done': {
-    const task = done(store, args[0]);
-    console.log(`Marked task ${task.id} done: ${task.text}`);
+    try {
+      const task = done(store, args[0]);
+      console.log(`Marked task ${task.id} done: ${task.text}`);
+    } catch (error) {
+      console.error(error.message);
+      process.exitCode = 1;
+    }
     break;
   }
   case 'remove': {
