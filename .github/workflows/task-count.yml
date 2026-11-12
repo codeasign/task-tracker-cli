@@ -1,0 +1,40 @@
+name: Task count report
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-project
+
+      - name: Add a few sample tasks
+        run: |
+          node src/index.js add "Write the setup lesson"
+          node src/index.js add "Record a workflow run screenshot"
+          node src/index.js done 1
+
+      - name: Count tasks
+        id: count
+        uses: ./.github/actions/task-count
+
+      - name: Print the count
+        run: echo "Total tasks ${{ steps.count.outputs.total }}, done ${{ steps.count.outputs.done }}"
+
+      - name: Show how GitHub masks secret-shaped values in logs
+        run: |
+          DEMO_TOKEN="sk-demo-not-a-real-secret-12345"
+          echo "::add-mask::$DEMO_TOKEN"
+          echo "Demo token value is $DEMO_TOKEN"
+
+      - name: Upload tasks.json as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tasks-snapshot
+          path: tasks.json

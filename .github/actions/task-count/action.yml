@@ -1,0 +1,15 @@
+name: Count tasks
+description: Reads tasks.json and reports how many tasks exist and how many are done.
+inputs:
+  tasks-file:
+    description: Path to the tasks JSON file
+    required: false
+    default: tasks.json
+outputs:
+  total:
+    description: Total number of tasks
+  done:
+    description: Number of completed tasks
+runs:
+  using: node20
+  main: index.js
