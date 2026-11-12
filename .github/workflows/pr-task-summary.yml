@@ -1,0 +1,36 @@
+name: PR task summary
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-project
+
+      - name: Add a few sample tasks
+        run: |
+          node src/index.js add "Review this pull request"
+          node src/index.js done 1
+
+      - name: Count tasks
+        id: count
+        uses: ./.github/actions/task-count
+
+      - name: Comment on the pull request
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `Task count check: ${{ steps.count.outputs.total }} total, ${{ steps.count.outputs.done }} done.`
+            })
